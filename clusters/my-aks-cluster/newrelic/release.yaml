@@ -11,7 +11,7 @@ spec:
         kind: HelmRepository
         name: nri-bundle
       values:
-        customSecretName: "nri-bundle-newrelic-logging-config"
+        customSecretName: "newrelic-bundle-newrelic-infrastructure-config"
         customSecretLicenseKey: "license"
         global:
           cluster: "flux-test-nr"

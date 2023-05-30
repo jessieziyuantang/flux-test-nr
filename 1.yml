@@ -1,0 +1,26 @@
+1. Create a test repo in your github and add this test repository to Flux
+
+Create a GitRepository manifest pointing to your repository’s master branch:
+
+flux create source git flux-test-nr \                  
+  --url=https://github.com/jessieziyuantang/flux-test-nr \
+  --branch=master \
+  --interval=30s \
+  --export > ./test.yaml
+
+2. Commit and push the test.yaml file to the repository
+
+3. Configure Flux to build and apply the kustomize directory located in the test repository.
+
+Use the flux create command to create a Kustomization that applies the deployment.
+
+flux create kustomization newrelic-test \
+  --target-namespace=newrelic \
+  --source=newrelic-test \
+  --path="./kustomize" \
+  --prune=true \
+  --interval=5m \
+  --export > ./newrelic-kustomization.yaml
+
+
+4. Commit and push the Kustomization manifest to the repository
