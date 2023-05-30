@@ -8,6 +8,11 @@ spec:
   chart:
     spec:
       chart: newrelic-logging
+      sourceRef:
+        kind: HelmRepository
+        name: newrelic
+        namespace: newrelic
+      interval: 1m
   values:
     global:
       cluster: "flux-test-nr"
