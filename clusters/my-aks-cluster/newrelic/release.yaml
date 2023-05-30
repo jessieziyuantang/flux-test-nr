@@ -2,19 +2,88 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: newrelic-bundle 
+  namespace: newrelic
 spec:
-   chart:
-    spec:
-      chart: nri-bundle
-      sourceRef:
-        kind: HelmRepository
-        name: newrelic
   values:
     global:
       cluster: "flux-test-nr"
       licenseKey: cd9571bdbcf2dc60bf4db62fe8f0b53ffc50NRAL
-  interval: 2m
-  install:
-    remediation:
-      retries: 3
-      
+    newrelic-logging:
+      enabled: true  
+      image:
+        repository: newrelic/newrelic-fluentbit-output
+        tag: "1.14.0"
+        pullPolicy: IfNotPresent  
+      fluentBit:
+        logLevel: "warn"
+        path: "/var/log/containers/*.log"
+        db: "/var/log/flb_kube.db"
+        criEnabled: false
+        k8sBufferSize: "32k"
+        k8sLoggingExclude: "On"  
+
+        config:
+          service: |
+            [SERVICE]
+                Daemon        Off
+                Flush         1
+                Log_Level     ${LOG_LEVEL}
+                Parsers_File  parsers.conf
+                HTTP_Server   On
+                HTTP_Listen   0.0.0.0
+                HTTP_Port     2020
+                Health_Check  On
+          inputs: |
+            [INPUT]
+                Name              tail
+                Tag               kube.*
+                Path              ${PATH}
+                multiline.parser  docker, cri
+                DB                ${FB_DB}
+                Mem_Buf_Limit     5MB
+                Skip_Long_Lines   On
+                Refresh_Interval  10
+          filters: |
+            [FILTER]
+                Name                kubernetes
+                Match               kube.*
+                Merge_Log           On
+                Keep_Log            Off
+                Buffer_Size         ${K8S_BUFFER_SIZE}
+                K8S-Logging.Parser  On
+                K8S-Logging.Exclude ${K8S_LOGGING_EXCLUDE}
+            [FILTER]
+                Name                record_modifier
+                Match               *
+                Record cluster_name ${CLUSTER_NAME}
+          outputs: |
+            [OUTPUT]
+                Name           newrelic
+                Match          *
+                licenseKey     ${LICENSE_KEY}
+                endpoint       ${ENDPOINT}
+                lowDataMode    ${LOW_DATA_MODE}
+          parsers: |
+            [PARSER]
+                Name         docker
+                Format       json
+                Time_Key     time
+                Time_Format  %Y-%m-%dT%H:%M:%S.%L
+                Time_Keep    On
+
+            [PARSER]
+                Name cri
+                Format regex
+                Regex ^(?<time>[^ ]+) (?<stream>stdout|stderr) (?<logtag>[^ ]*) (?<message>.*)$
+                Time_Key    time
+                Time_Format %Y-%m-%dT%H:%M:%S.%L%z
+
+      resources:
+        limits:
+          cpu: 500m
+          memory: 128Mi
+        requests:
+          cpu: 250m
+          memory: 64Mi
+
+    
