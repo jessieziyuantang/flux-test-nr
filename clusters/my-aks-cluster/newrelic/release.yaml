@@ -4,12 +4,6 @@ metadata:
   name: newrelic-bundle 
   namespace: newrelic
 spec:
-   chart:
-    spec:
-      chart: newrelic
-      sourceRef:
-        kind: HelmRepository
-        name: nri-bundle
   values:
     customSecretName: "newrelic-bundle-newrelic-infrastructure-config"
     customSecretLicenseKey: "license"
@@ -21,7 +15,6 @@ spec:
       enabled: true
     nri-metadata-injection:
       enabled: true
-
   interval: 1m
   install:
     remediation:
