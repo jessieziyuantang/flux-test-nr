@@ -15,8 +15,6 @@ spec:
     customSecretLicenseKey: "license"
     global:
       cluster: "flux-test-nr"
-    newrelic-logging:
-      enabled: true      
   interval: 1m
   install:
     remediation:
