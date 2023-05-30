@@ -19,16 +19,7 @@ spec:
           enabled: true      
         newrelic-infrastructure:
           enabled: true
-        nri-prometheus:
-          enabled: false
-        nri-metadata-injection:
-          enabled: true
-        kube-state-metrics:
-          enabled: false  
-        nri-kube-events:
-          enabled: false
-        newrelic-prometheus-agent:  
-          enabled: true
+
   interval: 1m
   install:
     remediation:
