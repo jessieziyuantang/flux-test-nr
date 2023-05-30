@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: newrelic
         namespace: newrelic
-      interval: 1m
+      interval: 1m    
   values:
     global:
       cluster: "flux-test-nr"
@@ -20,8 +20,7 @@ spec:
     newrelic-logging:
       enabled: true  
       image:
-        repository: newrelic/newrelic-fluentbit-output
-        tag: "1.14.0"
+        repository: newrelic/newrelic-fluentbit-output:1.14.0
         pullPolicy: IfNotPresent  
       fluentBit:
         logLevel: "warn"
