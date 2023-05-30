@@ -17,10 +17,6 @@ spec:
       cluster: "flux-test-nr"
     newrelic-logging:
       enabled: true      
-    newrelic-infrastructure:
-      enabled: true
-    nri-metadata-injection:
-      enabled: true
   interval: 1m
   install:
     remediation:
