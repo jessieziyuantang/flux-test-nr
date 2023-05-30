@@ -7,6 +7,7 @@ spec:
   chart:
     spec:
       chart: newrelic
+      reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
         name: nri-bundle
@@ -14,7 +15,6 @@ spec:
   install:
     remediation:
       retries: 3
-
   values:
     customSecretName: "newrelic-bundle-newrelic-infrastructure-config"
     customSecretLicenseKey: "license"
@@ -24,4 +24,5 @@ spec:
       enabled: true      
     newrelic-infrastructure:
        enabled: true
+       
       
