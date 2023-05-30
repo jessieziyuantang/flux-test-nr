@@ -12,8 +12,6 @@ spec:
         name: newrelic
         namespace: newrelic
   values:
-    customSecretName: "newrelic-bundle-newrelic-infrastructure-config"
-    customSecretLicenseKey: "license"
     global:
       cluster: "flux-test-nr"
   interval: 1m
