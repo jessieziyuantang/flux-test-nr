@@ -1,0 +1,36 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: newrelic-bundle 
+  namespace: newrelic
+spec:
+   chart:
+    spec:
+      chart: newrelic
+      sourceRef:
+        kind: HelmRepository
+        name: nri-bundle
+      values:
+        customSecretName: "nri-bundle-newrelic-logging-config"
+        customSecretLicenseKey: "license"
+        global:
+          cluster: "flux-test-nr"
+        newrelic-logging:
+          enabled: true      
+        newrelic-infrastructure:
+          enabled: true
+        nri-prometheus:
+          enabled: false
+        nri-metadata-injection:
+          enabled: true
+        kube-state-metrics:
+          enabled: false  
+        nri-kube-events:
+          enabled: false
+        newrelic-prometheus-agent:  
+          enabled: true
+  interval: 1m
+  install:
+    remediation:
+      retries: 3
+      
