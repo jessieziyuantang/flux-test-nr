@@ -4,6 +4,10 @@ metadata:
   name: newrelic-bundle 
   namespace: newrelic
 spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: newrelic-logging
   values:
     global:
       cluster: "flux-test-nr"
