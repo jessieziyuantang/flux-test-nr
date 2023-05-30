@@ -21,7 +21,7 @@ spec:
       enabled: true   
       lowDataMode: true
     newrelic-infrastructure:
-      privileged: true
+      privileged: false
     nri-metadata-injection:
       enabled: true
    
