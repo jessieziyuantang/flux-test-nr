@@ -23,9 +23,15 @@ spec:
     newrelic-infrastructure:
       privileged: true
     kube-state-metrics:
-      enabled: true  
-    kubeEvents:
-      enabled: true  
-    kube-state-metrics:
+      enabled: true   
+    nri-kube-events:
+      enabled: true
+    nri-metadata-injection:
+      enabled: true
+    nri-prometheus:
+      enabled: false
+
+
+
       
 
