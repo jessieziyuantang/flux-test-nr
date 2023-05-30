@@ -4,24 +4,24 @@ metadata:
   name: newrelic-bundle 
   namespace: newrelic
 spec:
-   chart:
+  chart:
     spec:
       chart: newrelic
       sourceRef:
         kind: HelmRepository
         name: nri-bundle
-      values:
-        customSecretName: "newrelic-bundle-newrelic-infrastructure-config"
-        customSecretLicenseKey: "license"
-        global:
-          cluster: "flux-test-nr"
-        newrelic-logging:
-          enabled: true      
-        newrelic-infrastructure:
-          enabled: true
-
   interval: 1m
   install:
     remediation:
       retries: 3
+
+  values:
+    customSecretName: "newrelic-bundle-newrelic-infrastructure-config"
+    customSecretLicenseKey: "license"
+    global:
+      cluster: "flux-test-nr"
+    newrelic-logging:
+      enabled: true      
+    newrelic-infrastructure:
+       enabled: true
       
