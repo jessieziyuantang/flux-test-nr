@@ -6,10 +6,10 @@ metadata:
 spec:
    chart:
     spec:
-      chart: newrelic
+      chart: nri-bundle
       sourceRef:
         kind: HelmRepository
-        name: nri-bundle
+        name: newrelic
   values:
     customSecretName: "newrelic-bundle-newrelic-infrastructure-config"
     customSecretLicenseKey: "license"
