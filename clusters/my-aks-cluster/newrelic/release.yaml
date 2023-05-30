@@ -13,7 +13,7 @@ spec:
     global:
       cluster: "flux-test-nr"
       licenseKey: cd9571bdbcf2dc60bf4db62fe8f0b53ffc50NRAL
-  interval: 1m
+  interval: 2m
   install:
     remediation:
       retries: 3
