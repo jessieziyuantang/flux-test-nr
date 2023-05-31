@@ -85,16 +85,12 @@ spec:
                 Regex ^(?<time>[^ ]+) (?<stream>stdout|stderr) (?<logtag>[^ ]*) (?<message>.*)$
                 Time_Key    time
                 Time_Format %Y-%m-%dT%H:%M:%S.%L%z
-    newrelic-infrastructure:
-      enabled: true  
     kube-state-metrics:
       enabled: true   
     nri-kube-events:
       enabled: true
-    nri-metadata-injection:
+    newrelic-prometheus-agent:
       enabled: true
-    nri-prometheus:
-      enabled: false
    
 
 
