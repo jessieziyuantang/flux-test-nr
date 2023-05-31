@@ -21,10 +21,16 @@ spec:
       enabled: true   
       lowDataMode: true
     newrelic-infrastructure:
+      enabled: true  
+      privileged: true 
+    kube-state-metrics:
+      enabled: true   
+    nri-kube-events:
       enabled: true
-      privileged: true   
     nri-metadata-injection:
       enabled: true
+    nri-prometheus:
+      enabled: false
    
 
 
