@@ -24,7 +24,7 @@ spec:
         tag: "1.14.0"
         pullPolicy: IfNotPresent
       fluentBit:
-        logLevel: "warn"
+        logLevel: "info"
         path: "/var/log/containers/*.log"
         db: "/var/log/flb_kube.db"
         criEnabled: false
