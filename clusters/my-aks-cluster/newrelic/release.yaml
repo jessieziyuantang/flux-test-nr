@@ -22,7 +22,6 @@ spec:
       lowDataMode: true
     newrelic-infrastructure:
       enabled: true  
-      privileged: true 
     kube-state-metrics:
       enabled: true   
     nri-kube-events:
