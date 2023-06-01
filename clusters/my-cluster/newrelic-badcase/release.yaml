@@ -29,7 +29,7 @@ spec:
         db: "/var/log/flb_kube.db"
         criEnabled: false
         k8sBufferSize: "32k"
-        k8sLoggingExclude: "off"
+        k8sLoggingExclude: "on"
         retryLimit: 5
         config:
           service: |
