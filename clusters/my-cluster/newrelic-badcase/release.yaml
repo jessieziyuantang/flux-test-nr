@@ -17,6 +17,12 @@ spec:
     global:
       cluster: "aks-jessie-fluentbit"
       licenseKey: cd9571bdbcf2dc60bf4db62fe8f0b53ffc50NRAL
+     newrelic-infrastructure:  
+       enabled: true
+       image: 
+        repository: newrelic/infrastructure-bundle
+        tag: "3.2.4"
+        PullPolicy: IfNotPresent
     newrelic-logging:
       enabled: true   
       image:
