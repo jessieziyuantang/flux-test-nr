@@ -29,8 +29,7 @@ spec:
         db: "/var/log/flb_kube.db"
         criEnabled: false
         k8sBufferSize: "32k"
-        k8sLoggingExclude: "Off"
-        retryLimit: 5
+        k8sLoggingExclude: "On"
         config:
           service: |
             [SERVICE]
@@ -59,6 +58,7 @@ spec:
                 Keep_Log            Off
                 Kube_URL            https://kubernetes.default.svc.cluster.local:443
                 Buffer_Size         ${K8S_BUFFER_SIZE}
+                K8S-Logging.Parser  On
                 K8S-Logging.Exclude ${K8S_LOGGING_EXCLUDE}
             [FILTER]
                 Name           record_modifier
