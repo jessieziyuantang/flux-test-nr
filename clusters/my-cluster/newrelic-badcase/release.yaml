@@ -8,6 +8,7 @@ spec:
   chart:
     spec:
       chart: nri-bundle
+      chart-version: 5.0.13
       sourceRef:
         kind: HelmRepository
         name: newrelic
@@ -29,7 +30,7 @@ spec:
         db: "/var/log/flb_kube.db"
         criEnabled: false
         k8sBufferSize: "32k"
-        k8sLoggingExclude: "Off"
+        k8sLoggingExclude: "on"
         retryLimit: 5
         config:
           service: |
@@ -57,7 +58,6 @@ spec:
                 Match               kube.*
                 Merge_Log           On
                 Keep_Log            Off
-                Kube_URL            https://kubernetes.default.svc.cluster.local:443
                 Buffer_Size         ${K8S_BUFFER_SIZE}
                 K8S-Logging.Exclude ${K8S_LOGGING_EXCLUDE}
             [FILTER]
