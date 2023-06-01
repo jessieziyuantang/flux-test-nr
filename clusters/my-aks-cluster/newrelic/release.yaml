@@ -18,12 +18,6 @@ spec:
     global:
       cluster: "flux-test-nr"
       licenseKey: cd9571bdbcf2dc60bf4db62fe8f0b53ffc50NRAL
-    newrelic-infrastructure:
-      enabled: true   
-      image:
-        repository: newrelic/nri-kubernetes
-        tag: "2.13.8"
-        pullPolicy: IfNotPresent  
     newrelic-logging:
       enabled: true   
       image:
