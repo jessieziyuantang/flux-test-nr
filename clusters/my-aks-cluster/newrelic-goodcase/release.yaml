@@ -4,7 +4,7 @@ metadata:
   name: newrelic-bundle 
   namespace: newrelic
 spec:
-  interval: 10m
+  interval: 30m
   chart:
     spec:
       chart: nri-bundle
@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: newrelic
         namespace: newrelic
-      interval: 10m    
+      interval: 30m    
   values:
     global:
       cluster: "flux-test-nr"
