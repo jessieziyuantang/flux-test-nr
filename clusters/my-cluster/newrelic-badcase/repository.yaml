@@ -4,5 +4,5 @@ metadata:
   name: newrelic
   namespace: newrelic
 spec:
-  interval: 1m0s
+  interval: 60m0s
   url: https://helm-charts.newrelic.com
