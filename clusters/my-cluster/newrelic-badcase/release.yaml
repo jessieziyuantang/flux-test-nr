@@ -30,7 +30,6 @@ spec:
         criEnabled: false
         k8sBufferSize: "32k"
         k8sLoggingExclude: "on"
-        retryLimit: 5
         config:
           service: |
             [SERVICE]
