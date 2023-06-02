@@ -87,12 +87,7 @@ spec:
                 Time_Format %Y-%m-%dT%H:%M:%S.%L%z
     kube-state-metrics:
       enabled: true   
-    pixie-chart:
-      enabled: true   
-      deployKey: px-dep-7104909f-8694-4bea-b4f3-121f664196a7
-    newrelic-pixie:
-      enabled: true  
-      apiKey: px-api-7be27611-a759-4eb7-9dc6-04de3fdcfcd9
+
      
    
 
