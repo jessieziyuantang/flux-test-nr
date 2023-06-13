@@ -85,6 +85,18 @@ spec:
                 Regex ^(?<time>[^ ]+) (?<stream>stdout|stderr) (?<logtag>[^ ]*) (?<message>.*)$
                 Time_Key    time
                 Time_Format %Y-%m-%dT%H:%M:%S.%L%z
+
+      resources:
+        limits:
+          cpu: 500m
+          memory: 128Mi
+        requests:
+          cpu: 250m
+          memory: 64Mi
+      rbac:
+        create: true
+        pspEnabled: false    
+
     kube-state-metrics:
       enabled: true   
     nri-kube-events:
