@@ -21,80 +21,76 @@ spec:
       enabled: true   
       image:
         repository: newrelic/newrelic-fluentbit-output
-        tag: "1.16.0"
-        pullPolicy: IfNotPresent   
+        tag: "1.14.0"
+        pullPolicy: IfNotPresent
       fluentBit:
         logLevel: "info"
         path: "/var/log/containers/*.log"
         db: "/var/log/flb_kube.db"
         criEnabled: false
         k8sBufferSize: "32k"
-        k8sLoggingExclude: "On"
-        fluent-bit.conf: |
-          [SERVICE]
-              Flush         1
-              Log_Level     ${LOG_LEVEL}
-              Daemon        off
-              Parsers_File  parsers.conf
-              HTTP_Server   On
-              HTTP_Listen   0.0.0.0
-              HTTP_Port     2020
-
-          @INCLUDE input-kubernetes.conf
-          @INCLUDE output-newrelic.conf
-          @INCLUDE filter-kubernetes.conf
-
-        input-kubernetes.conf: |
-          [INPUT]
-              Name              tail
-              Tag               kube.*
-              Path              ${PATH}
-              Parser            ${LOG_PARSER}
-              DB                /var/log/flb_kube.db
-              Mem_Buf_Limit     6MB
-              Skip_Long_Lines   On
-              Refresh_Interval  10
-
-        filter-kubernetes.conf: |
-          [FILTER]
-              Name record_modifier
-              Match *
-              Record cluster_name ${CLUSTER_NAME}
-
-          [FILTER]
-              Name           kubernetes
-              Match          kube.*
-              Kube_URL       https://kubernetes.default.svc.cluster.local:443
-              Merge_Log      Off
-
-        output-newrelic.conf: |
-          [OUTPUT]
-              Name  newrelic
-              Match *
-              licenseKey ${LICENSE_KEY}
-              endpoint ${ENDPOINT}
-
-        parsers.conf: |
-          # Relevant parsers retrieved from: https://github.com/fluent/fluent-bit/blob/master/conf/parsers.conf
-          [PARSER]
-              Name         docker
-              Format       json
-              Time_Key     time
-              Time_Format  %Y-%m-%dT%H:%M:%S.%L
-              Time_Keep    On
-
-          [PARSER]
-             Name cri
-             Format regex
-             Regex ^(?<time>[^ ]+) (?<stream>stdout|stderr) (?<logtag>[^ ]*) (?<message>.*)$
-             Time_Key    time
-             Time_Format %Y-%m-%dT%H:%M:%S.%L%z
+        k8sLoggingExclude: "Off"
+        retryLimit: 5
+        config:
+          service: |
+            [SERVICE]
+                Flush         1
+                Log_Level     ${LOG_LEVEL}
+                Daemon        off
+                Parsers_File  parsers.conf
+                HTTP_Server   On
+                HTTP_Listen   0.0.0.0
+                HTTP_Port     2020
+          inputs: |
+            [INPUT]
+                Name              tail
+                Tag               kube.*
+                Path              ${PATH}
+                multiline.parser  docker, cri
+                DB                ${FB_DB}
+                Mem_Buf_Limit     6MB
+                Skip_Long_Lines   On
+                Refresh_Interval  10
+          filters: |
+            [FILTER]
+                Name                kubernetes
+                Match               kube.*
+                Merge_Log           On
+                Keep_Log            Off
+                Kube_URL            https://kubernetes.default.svc.cluster.local:443
+                Buffer_Size         ${K8S_BUFFER_SIZE}
+                K8S-Logging.Exclude ${K8S_LOGGING_EXCLUDE}
+            [FILTER]
+                Name           record_modifier
+                Match          *
+                Record         cluster_name ${CLUSTER_NAME}
+          outputs: |
+            [OUTPUT]
+                Name           newrelic
+                Match          *
+                licenseKey     ${LICENSE_KEY}
+                endpoint       ${ENDPOINT}
+                lowDataMode    ${LOW_DATA_MODE}
+                Retry_Limit    ${RETRY_LIMIT}
+          parsers: |
+            [PARSER]
+                Name         docker
+                Format       json
+                Time_Key     time
+                Time_Format  %Y-%m-%dT%H:%M:%S.%L
+                Time_Keep    On
+            [PARSER]
+                Name cri
+                Format regex
+                Regex ^(?<time>[^ ]+) (?<stream>stdout|stderr) (?<logtag>[^ ]*) (?<message>.*)$
+                Time_Key    time
+                Time_Format %Y-%m-%dT%H:%M:%S.%L%z
     kube-state-metrics:
-      enabled: true  
+      enabled: true   
     nri-kube-events:
       enabled: true
-    nri-prometheus:
-      enabled: false  
+    newrelic-prometheus-agent:
+      enabled: true
 
 
 
