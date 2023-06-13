@@ -30,6 +30,7 @@ spec:
         criEnabled: false
         k8sBufferSize: "32k"
         k8sLoggingExclude: "On"
+        LOW_DATA_MODE: "off"
         config:
           service: |
             [SERVICE]
