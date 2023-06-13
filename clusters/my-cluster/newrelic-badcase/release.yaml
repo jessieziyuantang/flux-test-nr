@@ -21,7 +21,7 @@ spec:
       enabled: true   
       image:
         repository: newrelic/newrelic-fluentbit-output
-        tag: "1.14.0"
+        tag: "1.16.0"
         pullPolicy: IfNotPresent   
       fluentBit:
         logLevel: "info"
@@ -51,7 +51,7 @@ spec:
               Path              ${PATH}
               Parser            ${LOG_PARSER}
               DB                /var/log/flb_kube.db
-              Mem_Buf_Limit     7MB
+              Mem_Buf_Limit     6MB
               Skip_Long_Lines   On
               Refresh_Interval  10
 
