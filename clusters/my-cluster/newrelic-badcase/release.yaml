@@ -35,7 +35,7 @@ spec:
           service: |
             [SERVICE]
                 Flush         1
-                Log_Level     ${LOG_LEVEL}
+                Log_Level     info
                 Daemon        off
                 Parsers_File  parsers.conf
                 HTTP_Server   On
@@ -45,9 +45,9 @@ spec:
             [INPUT]
                 Name              tail
                 Tag               kube.*
-                Path              ${PATH}
+                Path              /var/log/containers/*.log
                 multiline.parser  docker, cri
-                DB                ${FB_DB}
+                DB                /var/log/flb_kube.db
                 Mem_Buf_Limit     6MB
                 Skip_Long_Lines   On
                 Refresh_Interval  10
@@ -58,8 +58,8 @@ spec:
                 Merge_Log           On
                 Keep_Log            Off
                 Kube_URL            https://kubernetes.default.svc.cluster.local:443
-                Buffer_Size         ${K8S_BUFFER_SIZE}
-                K8S-Logging.Exclude ${K8S_LOGGING_EXCLUDE}
+                Buffer_Size         32k
+                K8S-Logging.Exclude Off
             [FILTER]
                 Name           record_modifier
                 Match          *
@@ -70,8 +70,8 @@ spec:
                 Match          *
                 licenseKey     ${LICENSE_KEY}
                 endpoint       ${ENDPOINT}
-                lowDataMode    ${LOW_DATA_MODE}
-                Retry_Limit    ${RETRY_LIMIT}
+                lowDataMode    false
+                Retry_Limit    5
           parsers: |
             [PARSER]
                 Name         docker
