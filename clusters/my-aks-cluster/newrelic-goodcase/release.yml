@@ -93,6 +93,8 @@ spec:
       enabled: false  
     nri-kube-events:
       enabled: true
+    nri-prometheus:
+      enabled: true  
 
      
    
