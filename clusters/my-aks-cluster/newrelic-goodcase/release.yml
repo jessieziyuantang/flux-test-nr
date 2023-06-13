@@ -90,7 +90,9 @@ spec:
              Time_Key    time
              Time_Format %Y-%m-%dT%H:%M:%S.%L%z
     kube-state-metrics:
-      enabled: true   
+      enabled: true  
+    nri-kube-events:
+      enabled: true
 
      
    
