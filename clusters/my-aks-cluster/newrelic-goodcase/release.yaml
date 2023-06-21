@@ -15,7 +15,7 @@ spec:
       interval: 5m    
   values:
     global:
-      cluster: "flux-test-nr"
+      cluster: "flux-win-eks"
       licenseKey: cd9571bdbcf2dc60bf4db62fe8f0b53ffc50NRAL
     newrelic-logging:
       enabled: true   
