@@ -21,7 +21,7 @@ spec:
       enabled: true   
       image:
         repository: newrelic/newrelic-fluentbit-output
-        tag: "1.14.0"
+        tag: "1.16.0"
         pullPolicy: IfNotPresent   
       fluentBit:
         logLevel: "info"
@@ -89,12 +89,7 @@ spec:
              Regex ^(?<time>[^ ]+) (?<stream>stdout|stderr) (?<logtag>[^ ]*) (?<message>.*)$
              Time_Key    time
              Time_Format %Y-%m-%dT%H:%M:%S.%L%z
-    kube-state-metrics:
-      enabled: true  
-    nri-kube-events:
-      enabled: true
-    nri-prometheus:
-      enabled: true  
+    
 
      
    

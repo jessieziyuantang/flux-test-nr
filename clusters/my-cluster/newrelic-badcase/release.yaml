@@ -16,7 +16,7 @@ spec:
   values:
     global:
       cluster: "aks-jessie-fluentbit"
-      licenseKey: cd9571bdbcf2dc60bf4db62fe8f0b53ffc50NRAL
+      licenseKey: cd957*************53ffc50NRAL
     newrelic-logging:
       enabled: true   
       image:
